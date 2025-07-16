@@ -36,7 +36,7 @@ module "ec2" {
   subnet_id          = module.vpc.subnet_id
   security_group_id  = module.vpc.security_group_id
 
-  public_key_path    = "C:/Users/Lesley/Documents/Curso-gabriel/AWS-Keys/key/aws-key.pub"
+  public_key_path    = "C:/keys/aws-key.pub"
   user_data_script   = "${path.module}/script.sh"
 }
 
