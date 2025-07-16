@@ -7,6 +7,12 @@ terraform {
       version = "6.2.0"
     }
   }
+
+  backend "s3" {
+    bucket = "gabriel-terraform-remote-state777"
+    key    = "aws-env/terraform.tfstate"
+    region = "us-east-1"
+  }
 }
 
 provider "aws" {
@@ -14,9 +20,27 @@ provider "aws" {
 
   default_tags {
     tags = {
-      ouwner     = "Gabriel"
+      owner      = "Gabriel"
       managed-by = "terraform"
     }
   }
 }
 
+module "vpc" {
+  source = "../Modules/VPC"
+}
+
+module "ec2" {
+  source = "../Modules/EC2"
+
+  subnet_id          = module.vpc.subnet_id
+  security_group_id  = module.vpc.security_group_id
+
+  public_key_path    = "C:/Users/Lesley/Documents/Curso-gabriel/AWS-Keys/key/aws-key.pub"
+  user_data_script   = "${path.module}/script.sh"
+}
+
+output "vm_public_ip" {
+  description = "IP público da instância EC2"
+  value       = module.ec2.vm_ip
+}
