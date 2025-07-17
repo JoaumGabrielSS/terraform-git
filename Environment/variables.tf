@@ -6,12 +6,6 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
-variable "backend_bucket" {
-  description = "Nome do bucket S3 para armazenar o tfstate remoto"
-  type        = string
-  default     = "gabriel-terraform-remote-state777"
-}
-
 variable "owner" {
   description = "Dono dos recursos"
   type        = string
