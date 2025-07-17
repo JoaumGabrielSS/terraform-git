@@ -16,12 +16,12 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-1"
+  region = var.aws_region
 
   default_tags {
     tags = {
-      owner      = "Gabriel"
-      managed-by = "terraform"
+      owner      = var.owner
+      managed-by = "IaC-Terraform"
     }
   }
 }
@@ -30,14 +30,16 @@ module "vpc" {
   source = "../Modules/VPC"
 }
 
+module "s3" {
+  source = "../Modules/Bucket"
+}
+
 module "ec2" {
-  source = "../Modules/EC2"
-
-  subnet_id          = module.vpc.subnet_id
-  security_group_id  = module.vpc.security_group_id
-
-  public_key_path    = "C:/keys/aws-key.pub"
-  user_data_script   = "${path.module}/script.sh"
+  source            = "../Modules/EC2"
+  subnet_id         = module.vpc.subnet_id
+  security_group_id = module.vpc.security_group_id
+  public_key_path   = var.public_key_path
+  user_data_script  = var.user_data_script
 }
 
 output "vm_public_ip" {
