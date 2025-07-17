@@ -1,4 +1,4 @@
-#É importante ir no main.tf e declarar a bucket que será feito o backend, linguagem 
+#É importante ir no main.tf e declarar a bucket que será feito o backend
 
 variable "aws_region" {
   description = "AWS region to deploy resources"
@@ -15,5 +15,5 @@ variable "owner" {
 variable "public_key_path" {
   description = "Caminho do arquivo de chave pública para EC2"
   type        = string
-  default     = "C:/keys/aws-key.pub"
+  default     = "/opt/keys/aws-key.pub"
 }

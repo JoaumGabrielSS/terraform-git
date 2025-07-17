@@ -9,7 +9,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "bucket-test12213"
+    bucket = "gabriel-terraform-remote-state777"
     key    = "aws-env/terraform.tfstate"
     region = "us-east-1"
   }
@@ -39,7 +39,7 @@ module "ec2" {
   subnet_id         = module.vpc.subnet_id
   security_group_id = module.vpc.security_group_id
   public_key_path   = var.public_key_path
-  user_data_script  = "C:/keys/script.sh"
+  user_data_script  = "/opt/keys/script.sh"
 }
 
 output "vm_public_ip" {
